@@ -14,17 +14,20 @@ def get_data(symbol: str, period='60d', interval='15m'):
     return data
 
 
-data = get_data('DOGE-USD')
+data = get_data('VIKASECO.NS')
+# If you only care about DOGE-USD
+data.columns = [col[0] if col[1] == 'DOGE-USD' else col[0] for col in data.columns]
 
+#print(data.columns)
 
 # ATR Calculation
 def calculate_atr(data, period=14):
     data['ATR'] = data['High'].rolling(period).max() - data['Low'].rolling(period).min()
-    return data.fillna(method='bfill')
+    return data.bfill()
+
 
 
 data = calculate_atr(data)
-
 
 # Indicators
 def add_indicators(data):
@@ -38,8 +41,7 @@ def add_indicators(data):
 
 data = add_indicators(data)
 
-print(data[['ADX']].describe())
-
+#print(data[['ADX']].describe())
 
 # Identify Rejection Candles
 def identify_rejection(data):
@@ -142,7 +144,3 @@ results2 = bt.optimize(
 
 # Display Results
 print(results2)
-
-
-
-

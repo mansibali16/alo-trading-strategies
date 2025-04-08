@@ -144,3 +144,6 @@ results2 = bt.optimize(
 
 # Display Results
 print(results2)
+
+# Plot Backtest
+bt.plot()

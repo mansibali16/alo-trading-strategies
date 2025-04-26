@@ -62,7 +62,7 @@ def place_order(symbol, token, qty, exch_seg, buy_sell, ordertype, price):
         logger.exception(f"Order placement failed: {e}")
 
 # Fetch historical data
-def get_data(symbol: str, period='60d', interval='30m'):
+def get_data(symbol: str, period='2d', interval='30m'):
     data = yf.download(tickers=symbol, period=period, interval=interval)
     data.reset_index(inplace=True)
     return data
